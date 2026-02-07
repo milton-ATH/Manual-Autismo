@@ -1,0 +1,2463 @@
+<!DOCTYPE html><html lang="es"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Capacitación en Enseñanza Diferenciada para Estudiantes con Autismo en Puerto Rico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Canela:wght@300;400;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --sage: #9CAF88;
+            --terracotta: #D4A574;
+            --navy: #2C3E50;
+            --cream: #F8F6F0;
+            --charcoal: #34495E;
+            --warm-white: #FEFCF8;
+        }
+        
+        .font-canela { font-family: 'Canela', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--warm-white);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--sage) 0%, var(--terracotta) 100%);
+        }
+        
+        .text-navy { color: var(--navy); }
+        .bg-navy { background-color: var(--navy); }
+        .text-sage { color: var(--sage); }
+        .bg-sage { background-color: var(--sage); }
+        .text-terracotta { color: var(--terracotta); }
+        .bg-terracotta { background-color: var(--terracotta); }
+        
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--cream);
+            border-right: 3px solid var(--sage);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .citation-link {
+            color: var(--terracotta);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted var(--terracotta);
+        }
+        
+        .citation-link:hover {
+            background-color: rgba(212, 165, 116, 0.1);
+            border-bottom: 1px solid var(--terracotta);
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+        
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: var(--warm-white);
+            border: 2px solid var(--sage);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* 防止触摸设备上的默认行为 */
+            -webkit-user-select: none; /* 防止文本选择 */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .toc-fixed.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mermaid-control-btn:not(.reset-zoom) {
+                display: none;
+            }
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .relative.z-10.max-w-7xl.mx-auto.px-8.py-16 {
+                padding: 2rem 1rem;
+                height: auto;
+            }
+            .relative.min-h-screen {
+                min-height: 0;
+            }
+            .hero-gradient {
+                padding: 1.5rem;
+            }
+            .text-5xl {
+                font-size: 2.5rem;
+            }
+            .text-6xl {
+                font-size: 3rem;
+            }
+            .text-lg {
+                font-size: 1rem;
+            }
+            .max-w-4xl.mx-auto, .max-w-6xl.mx-auto {
+                padding: 1rem;
+            }
+            .prose p, .text-lg, .prose-lg p {
+                word-wrap: break-word;
+            }
+            .mermaid-container {
+                padding: 15px;
+            }
+            .mermaid-container .mermaid {
+                height: 400px;
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="font-inter">
+    <!-- Table of Contents -->
+    <nav class="toc-fixed">
+      <div class="mb-8">
+        <h2 class="font-canela text-xl font-bold text-navy mb-4">Índice de Contenidos</h2>
+        <div class="w-16 h-1 bg-terracotta mb-6"></div>
+      </div>
+
+      <ul class="space-y-3 text-sm">
+        <li>
+          <a href="#seccion-1" class="block py-2 px-3 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">1. Fundamentos Legales y Regulatorios</a>
+          <ul class="ml-4 mt-2 space-y-1 text-xs">
+            <li>
+              <a href="#ley-51" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Ley 51-1996</a>
+            </li>
+            <li>
+              <a href="#ley-163" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Ley 163-2024</a>
+            </li>
+            <li>
+              <a href="#etica-ia" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Ética en IA</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#seccion-2" class="block py-2 px-3 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">2. Enseñanza Diferenciada para Autismo</a>
+          <ul class="ml-4 mt-2 space-y-1 text-xs">
+            <li>
+              <a href="#principios-teoricos" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Principios Teóricos</a>
+            </li>
+            <li>
+              <a href="#estrategias-bajo-costo" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Estrategias de Bajo Costo</a>
+            </li>
+            <li>
+              <a href="#metodologias-especificas" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Metodologías Específicas</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#seccion-3" class="block py-2 px-3 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">3. Integración de IA en Contextos de Recursos Limitados</a>
+          <ul class="ml-4 mt-2 space-y-1 text-xs">
+            <li>
+              <a href="#conceptualizacion-ia" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Conceptualización Práctica</a>
+            </li>
+            <li>
+              <a href="#herramientas-gratuitas" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Herramientas de Acceso Gratuito</a>
+            </li>
+            <li>
+              <a href="#aplicaciones-autismo" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Aplicaciones para Autismo</a>
+            </li>
+            <li>
+              <a href="#estrategias-independientes" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Estrategias sin Dependencia Tecnológica</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#seccion-4" class="block py-2 px-3 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">4. Plan de Educación Individualizada (PEI)</a>
+          <ul class="ml-4 mt-2 space-y-1 text-xs">
+            <li>
+              <a href="#fundamentos-legales-pei" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Fundamentos Legales del PEI</a>
+            </li>
+            <li>
+              <a href="#diferenciacion-curricular" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Diferenciación Curricular</a>
+            </li>
+            <li>
+              <a href="#integracion-ia-pei" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Integración de IA en el PEI</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#seccion-5" class="block py-2 px-3 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">5. Estrategias de Colaboración y Sostenibilidad</a>
+          <ul class="ml-4 mt-2 space-y-1 text-xs">
+            <li>
+              <a href="#trabajo-multidisciplinario" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Trabajo en Equipo Multidisciplinario</a>
+            </li>
+            <li>
+              <a href="#involucramiento-familias" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Involucramiento de Familias</a>
+            </li>
+            <li>
+              <a href="#desarrollo-profesional" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Desarrollo Profesional Continuo</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#seccion-6" class="block py-2 px-3 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">6. Planificación Práctica del Día de Capacitación</a>
+          <ul class="ml-4 mt-2 space-y-1 text-xs">
+            <li>
+              <a href="#estructura-horaria" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Estructura Horaria Sugerida</a>
+            </li>
+            <li>
+              <a href="#materiales-recursos" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Materiales y Recursos</a>
+            </li>
+            <li>
+              <a href="#evaluacion-seguimiento" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-10">Evaluación y Seguimiento</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="mt-12 pt-8 border-t border-sage border-opacity-30">
+        <p class="text-xs text-gray-600 mb-2">Capacitación de un día para:</p>
+        <p class="text-sm font-medium text-navy">Docentes de Primaria y Secundaria</p>
+        <p class="text-xs text-gray-500 mt-2">Puerto Rico</p>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="relative min-h-screen hero-gradient">
+        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-8 py-16">
+          <!-- Bento Grid Layout -->
+          <div class="grid grid-cols-12 gap-6 h-screen">
+            <!-- Title Card -->
+            <div class="col-span-12 lg:col-span-8 flex flex-col justify-center">
+              <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-2xl p-12 shadow-2xl">
+                <h1 class="font-canela text-6xl lg:text-7xl font-light text-navy leading-tight mb-6">
+                  <span class="italic text-terracotta">Enseñanza</span>
+                  <br/>
+                  <span class="font-bold">Diferenciada</span>
+                  <br/>
+                  <span class="text-5xl lg:text-6xl text-sage">para Estudiantes con Autismo</span>
+                </h1>
+                <p class="text-xl lg:text-2xl text-charcoal font-light max-w-2xl">
+                  Integración de Inteligencia Artificial y Cumplimiento del Marco Legal en Puerto Rico
+                </p>
+              </div>
+            </div>
+
+            <!-- Key Highlights -->
+            <div class="col-span-12 lg:col-span-4 space-y-6">
+              <div class="bg-white bg-opacity-95 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-balance-scale text-2xl text-terracotta mr-3"></i>
+                  <h3 class="font-canela text-lg font-bold text-navy">Marco Legal</h3>
+                </div>
+                <p class="text-sm text-gray-700">Leyes 51-1996 y 163-2024: derechos, procedimientos y responsabilidades para la educación inclusiva</p>
+              </div>
+
+              <div class="bg-white bg-opacity-95 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-brain text-2xl text-sage mr-3"></i>
+                  <h3 class="font-canela text-lg font-bold text-navy">IA Aplicada</h3>
+                </div>
+                <p class="text-sm text-gray-700">Herramientas gratuitas y estrategias éticas para la personalización educativa</p>
+              </div>
+
+              <div class="bg-white bg-opacity-95 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-users text-2xl text-navy mr-3"></i>
+                  <h3 class="font-canela text-lg font-bold text-navy">Sostenibilidad</h3>
+                </div>
+                <p class="text-sm text-gray-700">Colaboración multidisciplinaria y desarrollo profesional continuo sin recursos institucionales</p>
+              </div>
+            </div>
+
+            <!-- Visual Element -->
+            <div class="col-span-12 lg:col-span-6">
+              <div class="bg-white bg-opacity-80 rounded-2xl p-8 h-full flex items-center justify-center">
+                <img src="https://kimi-web-img.moonshot.cn/img/placeholder-0620/%E5%9B%BE%E7%89%878.png" alt="Profesor trabajando con estudiante con autismo en un aula inclusiva" class="rounded-xl shadow-lg w-full h-64 object-cover" size="medium" aspect="wide" style="photo" query="aula inclusiva profesor estudiante autismo" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="col-span-12 lg:col-span-6">
+              <div class="bg-white bg-opacity-95 rounded-2xl p-8 h-full">
+                <h3 class="font-canela text-2xl font-bold text-navy mb-6">Impacto Esperado</h3>
+                <div class="grid grid-cols-2 gap-6">
+                  <div class="text-center">
+                    <div class="text-3xl font-bold text-terracotta">100%</div>
+                    <div class="text-sm text-gray-600">Cumplimiento Legal</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl font-bold text-sage">0$</div>
+                    <div class="text-sm text-gray-600">Costo Adicional</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl font-bold text-navy">1 Día</div>
+                    <div class="text-sm text-gray-600">Duración Capacitación</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl font-bold text-terracotta">∞</div>
+                    <div class="text-sm text-gray-600">Posibilidades de Adaptación</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Sections -->
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-20">
+
+        <!-- Section 1: Fundamentos Legales -->
+        <section id="seccion-1" class="scroll-mt-8">
+          <header class="mb-12">
+            <h2 class="font-canela text-4xl font-bold text-navy mb-4">Fundamentos Legales y Regulatorios</h2>
+            <div class="w-24 h-1 bg-terracotta mb-6"></div>
+            <p class="text-xl text-gray-700 max-w-4xl">
+              El marco legal puertorriqueño establece las bases para una educación inclusiva y de calidad para estudiantes con autismo, incorporando derechos fundamentales, procedimientos obligatorios y estándares de cumplimiento.
+            </p>
+          </header>
+
+          <div class="bento-grid">
+            <!-- Ley 51-1996 -->
+            <div id="ley-51" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-sage">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-4">Ley 51-1996: Marco Integral de Servicios Educativos</h3>
+
+              <div class="mb-6">
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Principios Fundamentales y Derechos Establecidos</h4>
+                <p class="text-gray-700 mb-4">
+                  La <strong>Ley 51-1996</strong>, conocida como la &#34;Ley para Proveer Servicios Educativos a Personas con Impedimentos&#34;, constituye el pilar fundamental de la educación especial en Puerto Rico. Promulgada el 29 de junio de 1996, esta legislación establece el <strong>derecho inalienable de toda persona con impedimentos a recibir una educación pública, gratuita y apropiada (EPGA)</strong>
+                  <a href="https://presupuestosanteriores.pr.gov/af2009_2010/Tomo_II/suppdocs/baselegal/081/51-1996.pdf" class="citation-link" target="_blank">[33]</a>.
+                </p>
+
+                <div class="bg-sage bg-opacity-10 rounded-lg p-4 mb-4">
+                  <h5 class="font-semibold text-navy mb-2">Ambiente Menos Restrictivo (LRE)</h5>
+                  <p class="text-sm text-gray-700">
+                    Los estudiantes con impedimentos deben ser educados junto a sus pares sin discapacidades en la mayor medida posible. La separación solo debe ocurrir cuando la naturaleza o severidad del impedimento sea tal que no pueda lograrse una educación satisfactoria en el aula regular con el uso de servicios complementarios.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mb-6">
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Estructura Institucional y Responsabilidades</h4>
+                <p class="text-gray-700 mb-4">
+                  La ley establece la <strong>Secretaría Auxiliar de Servicios Integrales de Educación para Personas con Impedimentos (SAISPEI)</strong> como entidad rectora dentro del Departamento de Educación de Puerto Rico, responsable de supervisar la provisión de servicios y garantizar el cumplimiento de los mandatos legales.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Procedimientos Legales Obligatorios para Docentes</h4>
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <div class="w-2 h-2 bg-terracotta rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <div>
+                      <strong>Identificación y derivación:</strong> Los docentes están obligados a referir para evaluación a estudiantes que muestren signos de impedimento, documentando observaciones específicas y objetivas.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-2 h-2 bg-terracotta rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <div>
+                      <strong>Participación en equipos multidisciplinarios:</strong> Aportar información crítica sobre desempeño académico, estrategias implementadas y funcionamiento social en el aula regular.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-2 h-2 bg-terracotta rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <div>
+                      <strong>Implementación del PEI:</strong> Responsabilidad legal directa de ejecutar fielmente las adaptaciones curriculares y de evaluación especificadas.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ley 163-2024 -->
+            <div id="ley-163" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-terracotta">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-4">Ley 163-2024: Protección, Integración y Desarrollo de Personas con Autismo</h3>
+
+              <div class="mb-6">
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Alcance y Definiciones Actualizadas</h4>
+                <p class="text-gray-700 mb-4">
+                  La <strong>Ley 163-2024</strong>, aprobada el 19 de agosto de 2024, representa la legislación más reciente y específica sobre autismo en Puerto Rico, estableciendo un marco integral de protección, integración y desarrollo <a href="https://law.justia.com/codes/puerto-rico/title-twenty-four/part-vii/chapter-149a/3564/" class="citation-link" target="_blank">[1]</a>.
+                </p>
+
+                <div class="bg-terracotta bg-opacity-10 rounded-lg p-4">
+                  <h5 class="font-semibold text-navy mb-2">Modelo de Neurodiversidad</h5>
+                  <p class="text-sm text-gray-700">
+                    La ley incorpora explícitamente el modelo de la neurodiversidad, reconociendo que el autismo constituye una variación natural del desarrollo humano que debe ser respetada y acomodada, más que patologizada o eliminada.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mb-6">
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Mandatos para el Sistema Educativo</h4>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start">
+                    <i class="fas fa-graduation-cap text-sage mr-3 mt-1"></i>
+                    <span><strong>Capacitación especializada y continua</strong> para profesionales educativos en enseñanza diferenciada y estrategias específicas para autismo</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-search text-sage mr-3 mt-1"></i>
+                    <span><strong>Protocolos de identificación temprana</strong> e intervención oportuna para niños en edad preescolar</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-universal-access text-sage mr-3 mt-1"></i>
+                    <span><strong>Adaptaciones razonables y apoyos necesarios</strong> para acceso curricular, incluyendo apoyos visuales, modificaciones sensoriales y estrategias de comunicación aumentativa</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Mecanismos de Fiscalización y Cumplimiento</h4>
+                <p class="text-gray-700">
+                  La ley establece el <strong>Comité Directivo para el Seguimiento de la Política Pública de Autismo</strong> como mecanismo de gobernanza y fiscalización, integrando representantes de múltiples agencias gubernamentales, organizaciones de padres y personas con autismo.
+                </p>
+              </div>
+            </div>
+
+            <!-- Ética en IA -->
+            <div id="etica-ia" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-navy">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-4">Regulaciones de Ética en el Uso de Inteligencia Artificial</h3>
+
+              <div class="mb-6">
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Propuesta de Ley sobre Uso Ético de IA</h4>
+                <p class="text-gray-700 mb-4">
+                  La <strong>Propuesta de Ley sobre Uso Ético de la Inteligencia Artificial en Instituciones Educativas de Puerto Rico</strong>, presentada en 2025, establece un marco regulatorio emergente para la integración de tecnologías de IA en el contexto educativo <a href="https://www.aiforeducation.io/ai-resources/state-ai-guidance" class="citation-link" target="_blank">[2]</a>.
+                </p>
+
+                <div class="bg-navy bg-opacity-10 rounded-lg p-4">
+                  <h5 class="font-semibold text-navy mb-2">Protección de Datos de Estudiantes con Necesidades Especiales</h5>
+                  <p class="text-sm text-gray-700">
+                    Restricciones estrictas sobre qué tipos de información pueden ser ingresados en sistemas de IA, prohibiciones explícitas contra el uso de datos educativos para entrenar modelos sin consentimiento informado, y requisitos de seguridad de datos específicos para estudiantes con discapacidades.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-3">Principios Rectores para Docentes</h4>
+                <div class="space-y-3">
+                  <div class="flex items-start bg-gray-50 rounded-lg p-3">
+                    <i class="fas fa-plus-circle text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Uso de IA como herramienta complementaria, no sustitutiva:</strong> Los sistemas de IA deben amplificar la capacidad profesional del educador, nunca reemplazar su juicio pedagógico.
+                    </div>
+                  </div>
+                  <div class="flex items-start bg-gray-50 rounded-lg p-3">
+                    <i class="fas fa-eye text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Supervisión humana permanente en decisiones educativas:</strong> Las decisiones significativas deben ser tomadas por humanos con la información y recomendaciones de IA como uno de múltiples factores.
+                    </div>
+                  </div>
+                  <div class="flex items-start bg-gray-50 rounded-lg p-3">
+                    <i class="fas fa-file-alt text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Documentación de intervenciones asistidas por tecnología:</strong> Mantenimiento de registros de cuándo y cómo se utilizan herramientas de IA en la práctica educativa.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Enseñanza Diferenciada -->
+        <section id="seccion-2" class="scroll-mt-8">
+          <header class="mb-12">
+            <h2 class="font-canela text-4xl font-bold text-navy mb-4">Fundamentos de la Enseñanza Diferenciada</h2>
+            <div class="w-24 h-1 bg-terracotta mb-6"></div>
+            <p class="text-xl text-gray-700 max-w-4xl">
+              La enseñanza diferenciada aplicada al autismo requiere una comprensión profunda de los principios teóricos, estrategias prácticas de bajo costo y metodologías específicas que maximicen el potencial de cada estudiante.
+            </p>
+          </header>
+
+          <div class="bento-grid">
+            <!-- Principios Teóricos -->
+            <div id="principios-teoricos" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-sage">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Principios Teóricos de la Diferenciación Curricular</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Filosofía de Carol Ann Tomlinson Aplicada al Autismo</h4>
+                <p class="text-gray-700 mb-4">
+                  <strong>Carol Ann Tomlinson</strong>, reconocida internacionalmente como la principal teórica de la enseñanza diferenciada, ha desarrollado un marco conceptual que resulta particularmente aplicable a la educación de estudiantes con autismo <a href="https://www.academia.edu/3987161/The_Path_Leading_to_Differentiation_An_Interview_with_Carol_Tomlinson" class="citation-link" target="_blank">[58]</a>.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div class="bg-sage bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Contenido</h5>
+                    <p class="text-sm text-gray-700">Qué se enseña: complejidad, abstracción, conexiones. Adaptación para autismo: simplificación de lenguaje, ejemplos concretos, conexiones con intereses especiales.</p>
+                  </div>
+                  <div class="bg-terracotta bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Proceso</h5>
+                    <p class="text-sm text-gray-700">Cómo se accede y procesa información. Adaptación para autismo: estructura adicional, opciones de agrupamiento, apoyos para habilidades ejecutivas.</p>
+                  </div>
+                  <div class="bg-navy bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Producto</h5>
+                    <p class="text-sm text-gray-700">Cómo se demuestra el aprendizaje. Adaptación para autismo: opciones que reduzcan demandas sensoriales, tecnología asistiva, evaluaciones alternativas.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Adaptaciones Basadas en Perfiles del Espectro Autista</h4>
+                <div class="space-y-4">
+                  <div class="border-l-4 border-green-400 pl-4">
+                    <h5 class="font-semibold text-navy mb-2">Nivel 1: Apoyos Mínimos</h5>
+                    <p class="text-sm text-gray-700">Individuos con comunicación verbal funcional pero desafíos en organización, planificación y relaciones sociales. Adaptaciones enfocadas en estructura para tareas complejas y enseñanza explícita de habilidades sociales.</p>
+                  </div>
+                  <div class="border-l-4 border-yellow-400 pl-4">
+                    <h5 class="font-semibold text-navy mb-2">Nivel 2: Apoyos Sustanciales</h5>
+                    <p class="text-sm text-gray-700">Dificultades marcadas en comunicación, interacciones sociales limitadas incluso con apoyos, y comportamientos restrictivos que interfieren con el funcionamiento. Requieren apoyos sustanciales para acceso curricular.</p>
+                  </div>
+                  <div class="border-l-4 border-red-400 pl-4">
+                    <h5 class="font-semibold text-navy mb-2">Nivel 3: Apoyos Muy Sustanciales</h5>
+                    <p class="text-sm text-gray-700">Severas dificultades en comunicación verbal, muy limitada iniciativa social, y comportamientos restrictivos que marcadamente interfieren en todas las esferas. Requieren apoyos muy sustanciales y continuos.</p>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-600 mt-4 italic">Estos niveles no son estáticos ni deterministas. Un estudiante puede funcionar en diferentes niveles en diferentes contextos o áreas del desarrollo.</p>
+              </div>
+            </div>
+
+            <!-- Estrategias de Bajo Costo -->
+            <div id="estrategias-bajo-costo" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-terracotta">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Estrategias de Bajo Costo y Alto Impacto</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Apoyos Visuales y Estructuración del Ambiente</h4>
+                <p class="text-gray-700 mb-6">
+                  Los <strong>apoyos visuales</strong> constituyen una de las intervenciones más efectivas y mejor establecidas para estudiantes con autismo, con evidencia sólida de su impacto en la comprensión, la organización y la reducción de comportamientos desafiantes <a href="https://andaconmigo.com/tecnicas-de-estudio-para-ninos-con-autismo-mejora-su-aprendizaje-efectivamente/" class="citation-link" target="_blank">[67]</a>.
+                </p>
+
+                <div class="overflow-x-auto mb-6">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Estrategia</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Implementación</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Costo Estimado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3">Delimitación de áreas</td>
+                        <td class="border border-gray-300 p-3">Marcar estaciones de trabajo, rutinas de tránsito</td>
+                        <td class="border border-gray-300 p-3 text-green-600 font-semibold">Menos de $5</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3">Horarios visuales</td>
+                        <td class="border border-gray-300 p-3">Tomar fotos de actividades reales, imprimir y laminar</td>
+                        <td class="border border-gray-300 p-3 text-green-600 font-semibold">$10-20 inicial</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3">Sistemas de &#34;trabajo por lotes&#34;</td>
+                        <td class="border border-gray-300 p-3">Cajas o carpetas numeradas con materiales organizados</td>
+                        <td class="border border-gray-300 p-3 text-green-600 font-semibold">Materiales reciclados</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3">Etiquetado visual</td>
+                        <td class="border border-gray-300 p-3">Fotos o dibujos en estantes y contenedores</td>
+                        <td class="border border-gray-300 p-3 text-green-600 font-semibold">$5-10</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3">Espacios de regulación sensorial</td>
+                        <td class="border border-gray-300 p-3">Rincón con iluminación reducida, almohadas, materiales táctiles</td>
+                        <td class="border border-gray-300 p-3 text-green-600 font-semibold">$15-30</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Descomposición de Tareas y Enseñanza Estructurada</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">1</span>
+                    </div>
+                    <div>
+                      <strong>Descomposición de tareas en pasos secuenciales:</strong> Dividir tareas complejas en componentes manejables y enseñar cada paso explícitamente para compensar dificultades con planificación y organización.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">2</span>
+                    </div>
+                    <div>
+                      <strong>Listas de verificación y organizadores gráficos:</strong> Proporcionar estructura externa para tareas de múltiples pasos, enseñando explícitamente cómo usar estas herramientas.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">3</span>
+                    </div>
+                    <div>
+                      <strong>Técnicas de modelado y práctica guiada:</strong> El docente o compañero demuestra cómo realizar una tarea, seguido de práctica con apoyo inmediato y retroalimentación.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">4</span>
+                    </div>
+                    <div>
+                      <strong>Generalización gradual:</strong> Planificación sistemática para transferir habilidades aprendidas en un contexto a nuevas situaciones, enseñando en múltiples contextos y con variaciones.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Adaptaciones Sensoriales sin Tecnología Especializada</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Modalidad Sensorial</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Estrategias de Adaptación de Bajo Costo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Visual</td>
+                        <td class="border border-gray-300 p-3">Luz natural, lámparas de escritorio con luz incandescente, gorras con visera permitidas, reducción de decoraciones visuales</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Auditiva</td>
+                        <td class="border border-gray-300 p-3">Tapones de oídos de espuma, áreas de trabajo en zonas más silenciosas, música de fondo suave, señales visuales para transiciones</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Táctil/Propioceptiva</td>
+                        <td class="border border-gray-300 p-3">Pelotas de estrés caseras (globos con harina), bolsas de arroz, ejercicios de presión profunda, breaks de movimiento</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Vestibular</td>
+                        <td class="border border-gray-300 p-3">Mecedoras o sillas que permiten movimiento, oportunidades de movimiento rítmico, cambios de posición permitidos</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metodologías Específicas -->
+            <div id="metodologias-especificas" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-navy">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Metodologías Específicas para Autismo</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Enfoque TEACCH</h4>
+                <p class="text-gray-700 mb-4">
+                  El <strong>enfoque TEACCH</strong> (Tratamiento y Educación de Niños con Autismo y Problemas de Comunicación Relacionados), desarrollado en la Universidad de Carolina del Norte, constituye uno de los programas más ampliamente implementados y estudiados para la educación de personas con autismo <a href="https://andaconmigo.com/tecnicas-de-estudio-para-ninos-con-autismo-mejora-su-aprendizaje-efectivamente/" class="citation-link" target="_blank">[67]</a>.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Estructura física</h5>
+                    <p class="text-sm text-gray-700">Organización del espacio para clarificar expectativas. Implementación: delimitación de áreas, minimización de distractores, espacios de regulación.</p>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Horarios visuales</h5>
+                    <p class="text-sm text-gray-700">Representación de secuencia temporal de actividades. Implementación: individualizados según capacidad del estudiante, usados consistentemente.</p>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Sistemas de trabajo</h5>
+                    <p class="text-sm text-gray-700">Estructura clara de inicio, desarrollo y fin para cada tarea. Implementación: contenedores de &#34;hacer&#34; y &#34;terminado&#34;, organización de materiales.</p>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Instrucción visual</h5>
+                    <p class="text-sm text-gray-700">Complemento o reemplazo de instrucciones verbales. Implementación: organizadores gráficos, modelos visuales, escritura como apoyo.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Estrategias de Comunicación Alternativa</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <i class="fas fa-exchange-alt text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Sistemas de intercambio de imágenes (PECS):</strong> Versión simplificada para aulas inclusivas que implica identificación de necesidades comunicativas, desarrollo de tarjetas con fotografías, enseñanza explícita del intercambio y expansión gradual del repertorio.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-th text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Tableros de comunicación de bajo costo:</strong> Elaborados con cartulina, fotografías de revistas o impresas, y plastificación casera con cinta adhesiva transparente. Organizados por contexto (aula, recreo, almuerzo) o por función (necesidades, comentarios sociales, participación académica).
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-mobile-alt text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Tecnología asistiva básica:</strong> Aplicaciones gratuitas como <strong>LetMeTalk</strong>, <strong>JABtalk</strong> o versiones gratuitas de <strong>Proloquo2Go</strong> que pueden instalarse en dispositivos personales para transformarlos en comunicadores aumentativos.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Intervenciones Conductuales Positivas</h4>
+                <div class="space-y-4">
+                  <div class="bg-blue-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Análisis Funcional de Comportamientos</h5>
+                    <p class="text-sm text-gray-700">Recopilación sistemática de datos antecedente-conducta-consecuencia (ABC) para identificar patrones y funciones de comportamientos desafiantes.</p>
+                  </div>
+                  <div class="bg-green-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Estrategias de Prevención</h5>
+                    <p class="text-sm text-gray-700">Modificación de antecedentes para reducir probabilidad de comportamientos desafiantes: ajustes en presentación de demandas, modificación del ambiente, rutinas más predictibles y enseñanza de habilidades alternativas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: IA en Contextos de Recursos Limitados -->
+        <section id="seccion-3" class="scroll-mt-8">
+          <header class="mb-12">
+            <h2 class="font-canela text-4xl font-bold text-navy mb-4">Integración de Inteligencia Artificial</h2>
+            <div class="w-24 h-1 bg-terracotta mb-6"></div>
+            <p class="text-xl text-gray-700 max-w-4xl">
+              La IA ofrece oportunidades únicas para la personalización educativa, incluso en contextos con recursos limitados, siempre dentro de un marco ético y con supervisión humana constante.
+            </p>
+          </header>
+
+          <div class="bento-grid">
+            <!-- Conceptualización Práctica -->
+            <div id="conceptualizacion-ia" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-sage">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Conceptualización Práctica de IA para Docentes</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Definición Operacional de IA Educativa</h4>
+                <p class="text-gray-700 mb-4">
+                  Para efectos prácticos, la <strong>inteligencia artificial educativa</strong> se define como el conjunto de herramientas computacionales que pueden asistir a los docentes en tareas de planificación, adaptación, generación de materiales y análisis de datos, funcionando como <strong>amplificadores de su capacidad profesional más que como sustitutos de su juicio pedagógico</strong>
+                  <a href="https://forwardteacher.com/2025/05/rumbo-a-una-generacion-ia/" class="citation-link" target="_blank">[42]</a>.
+                </p>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Tipo de IA</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Función Principal</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Aplicación para Autismo</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Accesibilidad</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Generativa</td>
+                        <td class="border border-gray-300 p-3">Crear contenido nuevo (texto, imágenes, planes)</td>
+                        <td class="border border-gray-300 p-3">Adaptaciones de textos, historias sociales, organizadores gráficos</td>
+                        <td class="border border-gray-300 p-3 text-green-600 font-semibold">Alta</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Adaptativa</td>
+                        <td class="border border-gray-300 p-3">Ajustar dificultad según respuestas del estudiante</td>
+                        <td class="border border-gray-300 p-3">Plataformas de práctica personalizada, rutas de aprendizaje individualizadas</td>
+                        <td class="border border-gray-300 p-3 text-yellow-600 font-semibold">Media</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Analítica</td>
+                        <td class="border border-gray-300 p-3">Procesar datos para identificar patrones</td>
+                        <td class="border border-gray-300 p-3">Análisis de progreso, identificación de tendencias de comportamiento</td>
+                        <td class="border border-gray-300 p-3 text-green-600 font-semibold">Alta</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Principios de Implementación Ética y Responsable</h4>
+                <div class="space-y-4">
+                  <div class="bg-sage bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Verificación de Información Generada por IA</h5>
+                    <p class="text-sm text-gray-700">Revisión crítica de contenido generado por IA para verificar exactitud factual, adecuación cultural y coherencia con conocimiento especializado sobre autismo, debido al fenómeno de &#34;alucinaciones&#34; donde los sistemas producen información falsa que parece confiable.</p>
+                  </div>
+
+                  <div class="bg-terracotta bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Protección de Privacidad de Estudiantes</h5>
+                    <p class="text-sm text-gray-700">Prácticas específicas: anonimización sistemática de datos, verificación de políticas de privacidad de herramientas, almacenamiento seguro de información y consentimiento informado documentado de padres.</p>
+                  </div>
+
+                  <div class="bg-navy bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Transparencia con Estudiantes y Familias</h5>
+                    <p class="text-sm text-gray-700">Notificación clara sobre qué tecnologías se emplean, cómo funcionan, qué datos procesan y qué salvaguardas existen, adaptando la comunicación al perfil de cada familia.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Herramientas Gratuitas -->
+            <div id="herramientas-gratuitas" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-terracotta">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Herramientas de IA de Acceso Gratuito o Bajo Costo</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Asistentes de IA para Generación de Materiales</h4>
+                <div class="overflow-x-auto mb-6">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Herramienta</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Versión Gratuita</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Fortalezas para Educación Especial</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Limitaciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">ChatGPT (OpenAI)</td>
+                        <td class="border border-gray-300 p-3">GPT-3.5, acceso web y app móvil</td>
+                        <td class="border border-gray-300 p-3">Versatilidad general, buena comprensión de contexto educativo</td>
+                        <td class="border border-gray-300 p-3">Límite de mensajes en horas pico, requiere conexión estable</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Claude (Anthropic)</td>
+                        <td class="border border-gray-300 p-3">Claude 3.5 Sonnet, acceso web</td>
+                        <td class="border border-gray-300 p-3">Procesamiento de contextos extensos, coherencia en conversaciones largas</td>
+                        <td class="border border-gray-300 p-3">Menos conocimiento especializado en educación que alternativas</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Gemini (Google)</td>
+                        <td class="border border-gray-300 p-3">Gemini 1.5 Flash, integrado en Workspace</td>
+                        <td class="border border-gray-300 p-3">Integración nativa con Documentos, Gmail, otras apps Google</td>
+                        <td class="border border-gray-300 p-3">Puede priorizar productos Google en respuestas</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Microsoft Copilot</td>
+                        <td class="border border-gray-300 p-3">Versión básica con cuenta Microsoft</td>
+                        <td class="border border-gray-300 p-3">Integración con Office, acceso a información web actualizada</td>
+                        <td class="border border-gray-300 p-3">Funciones avanzadas requieren suscripción</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4">
+                  <h5 class="font-semibold text-navy mb-2">Estrategia de Prompting Efectivo</h5>
+                  <p class="text-sm text-gray-700 mb-3">Un prompt efectivo para docentes de estudiantes con autismo debe incluir:</p>
+                  <ul class="text-xs text-gray-700 space-y-1">
+                    <li>• Perfil del estudiante objetivo (nivel de apoyo, fortalezas, patrones sensoriales, intereses)</li>
+                    <li>• Desafíos particulares que requieran adaptación</li>
+                    <li>• Formato de salida específico deseado</li>
+                    <li>• Restricciones explícitas (evitar metáforas abstractas, usar oraciones cortas, incluir indicadores visuales)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Plataformas Especializadas en Diferenciación</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Plataforma</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Función Principal</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Versión Gratuita</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Aplicación para Autismo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Diffit</td>
+                        <td class="border border-gray-300 p-3">Adaptación de lecturas con niveles de complejidad variables</td>
+                        <td class="border border-gray-300 p-3">Limitada por volumen mensual</td>
+                        <td class="border border-gray-300 p-3">Crear versiones de textos con vocabulario controlado, estructura clara</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">MagicSchool AI</td>
+                        <td class="border border-gray-300 p-3">Generación de actividades, evaluaciones, planes de lección</td>
+                        <td class="border border-gray-300 p-3">Funciones básicas disponibles</td>
+                        <td class="border border-gray-300 p-3">Planes con adaptaciones explícitas, rúbricas con criterios individualizados</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Canva con IA</td>
+                        <td class="border border-gray-300 p-3">Diseño de materiales visuales, generación de imágenes</td>
+                        <td class="border border-gray-300 p-3">Versión educativa gratuita</td>
+                        <td class="border border-gray-300 p-3">Horarios visuales profesionales, organizadores gráficos, infografías accesibles</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Eduaide.AI</td>
+                        <td class="border border-gray-300 p-3">Generación de materiales de instrucción, evaluación, retroalimentación</td>
+                        <td class="border border-gray-300 p-3">Créditos mensuales gratuitos</td>
+                        <td class="border border-gray-300 p-3">Diferenciación rápida de contenido, generación de versiones alternativas</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Herramientas de Google para Educación</h4>
+                <p class="text-gray-700 mb-4">
+                  El <strong>ecosistema de Google para Educación</strong>, al que muchas escuelas puertorriqueñas tienen acceso mediante el programa Google Workspace for Education gratuito, integra capacidades de IA que docentes pueden aprovechar sin costo adicional.
+                </p>
+
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <i class="fas fa-robot text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Gemini en Docs/Gmail:</strong> Generación de texto, resumen, reescritura para adaptación rápida de comunicaciones con padres y simplificación de textos.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-volume-up text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Lector de pantalla integrado:</strong> Síntesis de voz con soporte para español para acceso a contenido escrito por estudiantes con preferencia auditiva.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-pen text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Sugerencias de escritura:</strong> Corrección gramatical y de estilo como apoyo a estudiantes con desafíos en expresión escrita.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-microphone text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Voz a texto:</strong> Dictado para producción de texto, eliminando barreras motoras para estudiantes con dificultades de grafomotricidad.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-code-branch text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Formularios con ramificación:</strong> Retroalimentación automática básica con rutas diferenciadas según respuestas del estudiante.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aplicaciones para Autismo -->
+            <div id="aplicaciones-autismo" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-navy">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Aplicaciones de IA Específicas para Estudiantes con Autismo</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Personalización de Contenido y Evaluación</h4>
+                <div class="space-y-4">
+                  <div class="bg-blue-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Adaptación Automática de Nivel de Lectura</h5>
+                    <p class="text-sm text-gray-700">Más allá de simplificar vocabulario, se considera: oraciones que explicitan relaciones causales implícitas, eliminación de lenguaje figurado, estructura visual generosa y conexiones explícitas con conocimiento previo.</p>
+                  </div>
+                  <div class="bg-green-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Generación de Preguntas Diferenciadas</h5>
+                    <p class="text-sm text-gray-700">Para estudiantes con fortalezas en memoria factual: preguntas que enfatizan identificación, clasificación y secuenciación. Para aquellos con capacidades de razonamiento pero dificultades expresivas: preguntas que permiten demostración mediante selección, ordenamiento o construcción.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Apoyo en Habilidades Sociales y Comunicación</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <i class="fas fa-comments text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Simulaciones de interacciones sociales:</strong> Herramientas como <strong>Character.AI</strong> permiten crear &#34;personajes&#34; para practicar escenarios sociales. Un docente puede configurar personajes que representen a compañeros, maestros o desconocidos para practicar inicio, mantenimiento y cierre de interacciones <a href="https://schoolhub.ai/en-US/articles/ai-classroom-activities-by-age" class="citation-link" target="_blank">[110]</a>.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-book-open text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Generación de historias sociales personalizadas:</strong> La IA acelera la creación de historias sociales (desarrolladas por Carol Gray) que preparan para eventos anticipados. El prompt estructurado solicita la historia específica, que luego se adapta con fotografías reales del contexto del estudiante.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Organización y Planificación Estudiantil</h4>
+                <div class="space-y-4">
+                  <div class="bg-purple-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Asistentes de IA para Gestión de Tareas</h5>
+                    <p class="text-sm text-gray-700">Aplicaciones gratuitas como Google Assistant, Siri o Alexa pueden configurarse para recordatorios específicos y predictibles. La efectividad depende de la especificidad: &#34;abrir cuaderno de matemáticas, completar problemas 1-5 de página 47, guardar en carpeta azul&#34; es más efectivo que &#34;hacer tarea&#34; <a href="https://www.edutopia.org/article/5-engaging-ai-classroom-activities-try-your-students/" class="citation-link" target="_blank">[111]</a>.</p>
+                  </div>
+                  <div class="bg-orange-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Descomposición de Proyectos Complejos</h5>
+                    <p class="text-sm text-gray-700">La IA generativa puede descomponer asignaciones complejas en pasos manejables, abordando directamente el desafío de iniciación de tareas que frecuentemente paraliza a estudiantes con autismo.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Estrategias sin Dependencia Tecnológica -->
+            <div id="estrategias-independientes" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-sage">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Estrategias sin Dependencia Tecnológica Institucional</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Uso de Dispositivos Personales y BYOD</h4>
+                <p class="text-gray-700 mb-4">
+                  La política de <strong>Bring Your Own Device (BYOD)</strong> representa estrategia viable en contextos donde las escuelas carecen de recursos para provisionar equipos institucionales. En Puerto Rico, donde la penetración de smartphones es alta, el BYOD permite acceso a capacidades de IA que de otro modo serían inalcanzables.
+                </p>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Aspecto</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Consideración</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Estrategia de Implementación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Equidad</td>
+                        <td class="border border-gray-300 p-3">No todos los estudiantes tienen dispositivos compatibles</td>
+                        <td class="border border-gray-300 p-3">Compartición controlada de recursos generados, acceso a dispositivos de préstamo escolar cuando sea posible</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Políticas de uso</td>
+                        <td class="border border-gray-300 p-3">Necesidad de claridad sobre propósitos y momentos de uso</td>
+                        <td class="border border-gray-300 p-3">Establecimiento explícito con participación de estudiantes, formatos visuales de recordatorio</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Seguridad</td>
+                        <td class="border border-gray-300 p-3">Riesgos de contenido inapropiado, ciberacoso</td>
+                        <td class="border border-gray-300 p-3">Supervisión activa, educación digital, reporte de incidentes</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Sostenibilidad</td>
+                        <td class="border border-gray-300 p-3">Dependencia de datos móviles personales</td>
+                        <td class="border border-gray-300 p-3">Priorización de apps que funcionan offline, uso de WiFi escolar cuando disponible</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Implementación de Principios de IA sin Software Especializado</h4>
+                <div class="space-y-4">
+                  <div class="bg-sage bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">&#34;IA sin IA&#34;</h5>
+                    <p class="text-sm text-gray-700">Emulación manual de la lógica de diferenciación basada en datos mediante sistemas manuales que mantienen la esencia pedagógica de la IA.</p>
+                  </div>
+
+                  <div class="flex items-start">
+                    <i class="fas fa-chart-line text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Sistemas de decisión basados en datos observacionales:</strong> Hojas de cálculo simples o registros en papel que documentan para cada estudiante: fecha, actividad, nivel de apoyo, desempeño observado y notas de contexto. Acumulado a lo largo de semanas, permite identificar patrones que informan decisiones de diferenciación.
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <i class="fas fa-users text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Algoritmos manuales para agrupamiento flexible:</strong> Matrices de decisión simples donde el docente establece criterios relevantes (nivel de habilidad, preferencia de trabajo, perfil sensorial, intereses compartidos) y asigna grupos según configuración óptima para objetivos de aprendizaje.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Colaboración y Compartición de Recursos entre Docentes</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Mecanismo de Colaboración</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Descripción</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Implementación de Bajo Costo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Repositorios comunitarios</td>
+                        <td class="border border-gray-300 p-3">Bancos de materiales diferenciados organizados y etiquetados</td>
+                        <td class="border border-gray-300 p-3">Carpeta compartida en Google Drive, grupo de Facebook cerrado, sistema físico de intercambio</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Bancos de prompts</td>
+                        <td class="border border-gray-300 p-3">Colecciones de instrucciones efectivas para generación de contenido con IA</td>
+                        <td class="border border-gray-300 p-3">Documento compartido, hoja de cálculo con categorización por tipo de necesidad</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Redes de apoyo entre pares</td>
+                        <td class="border border-gray-300 p-3">Conexiones regulares entre docentes de escuelas con recursos similares</td>
+                        <td class="border border-gray-300 p-3">Grupos de WhatsApp, videoconferencias periódicas, encuentros presenciales rotativos</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: PEI -->
+        <section id="seccion-4" class="scroll-mt-8">
+          <header class="mb-12">
+            <h2 class="font-canela text-4xl font-bold text-navy mb-4">Plan de Educación Individualizada (PEI)</h2>
+            <div class="w-24 h-1 bg-terracotta mb-6"></div>
+            <p class="text-xl text-gray-700 max-w-4xl">
+              El PEI constituye el documento central que garantiza la prestación de servicios educativos apropiados, requiriendo una integración cuidadosa de diferenciación curricular y tecnologías de apoyo.
+            </p>
+          </header>
+
+          <div class="bento-grid">
+            <!-- Fundamentos Legales del PEI -->
+            <div id="fundamentos-legales-pei" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-sage">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Fundamentos Legales del PEI en Puerto Rico</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Componentes Obligatorios del PEI</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Componente</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Descripción</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Implicación para Docentes Regulares</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Presente nivel de desempeño</td>
+                        <td class="border border-gray-300 p-3">Descripción del funcionamiento actual del estudiante en todas las áreas relevantes</td>
+                        <td class="border border-gray-300 p-3">Contribución con información de aula sobre desempeño académico y social</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Metas anuales medibles</td>
+                        <td class="border border-gray-300 p-3">Objetivos específicos, observables y medibles para el año escolar</td>
+                        <td class="border border-gray-300 p-3">Implementación de instrucción dirigida a estas metas, documentación de progreso</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Servicios relacionados necesarios</td>
+                        <td class="border border-gray-300 p-3">Terapias y apoyos adicionales requeridos</td>
+                        <td class="border border-gray-300 p-3">Coordinación con especialistas, integración de recomendaciones en aula regular</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Adaptaciones curriculares</td>
+                        <td class="border border-gray-300 p-3">Modificaciones específicas para acceso y demostración de aprendizaje</td>
+                        <td class="border border-gray-300 p-3 text-red-600 font-semibold">Implementación fiel y consistente de todas las adaptaciones</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Justificación de ubicación</td>
+                        <td class="border border-gray-300 p-3">Explicación de por qué la ubicación es la menos restrictiva apropiada</td>
+                        <td class="border border-gray-300 p-3">Participación en discusiones de equipo sobre ubicación óptima</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Rol del Docente Regular en el Proceso del PEI</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">1</span>
+                    </div>
+                    <div>
+                      <strong>Contribución a la evaluación multidisciplinaria:</strong> Aportar perspectiva insustituible sobre funcionamiento en currículo general, estrategias intentadas y sus resultados, y dinámica social con pares.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">2</span>
+                    </div>
+                    <div>
+                      <strong>Implementación fiel de adaptaciones:</strong> Responsabilidad legal directa de ejecutar todas las adaptaciones curriculares y de evaluación especificadas en el PEI.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">3</span>
+                    </div>
+                    <div>
+                      <strong>Documentación de progreso y comunicación:</strong> Mantenimiento de registros sistemáticos, comunicación regular sobre efectividad de intervenciones y participación proactiva en resolución de problemas.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-sage bg-opacity-20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <span class="text-sage font-bold text-sm">4</span>
+                    </div>
+                    <div>
+                      <strong>Participación en revisiones y reuniones anuales:</strong> Asistencia obligatoria a reuniones del PEI, contribución con información actualizada y colaboración en ajustes de metas y servicios.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Diferenciación Curricular -->
+            <div id="diferenciacion-curricular" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-terracotta">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Diferenciación Curricular Dentro del Marco del PEI</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Adaptaciones de Contenido</h4>
+                <p class="text-gray-700 mb-4">
+                  Las <strong>adaptaciones de contenido</strong> modifican qué se enseña, manteniendo el rigor académico central mientras ajustan la complejidad, el enfoque o la presentación.
+                </p>
+
+                <div class="space-y-4">
+                  <div class="bg-terracotta bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Simplificación de conceptos</h5>
+                    <p class="text-sm text-gray-700">Reducción de complejidad lingüística y abstracción. Ejemplo: Concepto de &#34;democracia&#34; explicado mediante ejemplos concretos de toma de decisiones en el aula.</p>
+                  </div>
+                  <div class="bg-sage bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Enfoque en habilidades esenciales</h5>
+                    <p class="text-sm text-gray-700">Priorización de contenido más funcional y transferible. Ejemplo: En matemáticas, énfasis en operaciones con dinero y tiempo sobre conceptos abstractos avanzados.</p>
+                  </div>
+                  <div class="bg-navy bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Conexiones con intereses</h5>
+                    <p class="text-sm text-gray-700">Vinculación de contenido con intereses especiales del estudiante. Ejemplo: Uso de información sobre trenes para enseñar conceptos de velocidad, distancia, tiempo.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Adaptaciones de Proceso</h4>
+                <p class="text-gray-700 mb-4">
+                  Las <strong>adaptaciones de proceso</strong> modifican cómo los estudiantes acceden y procesan la información, sin cambiar el contenido esencial.
+                </p>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Dimensión</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Opciones de Adaptación</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Consideración para Autismo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Modalidad de entrada</td>
+                        <td class="border border-gray-300 p-3">Visual, auditiva, kinestésica, multimodal</td>
+                        <td class="border border-gray-300 p-3">Preferencia visual frecuente; combinación de modalidades para redundancia</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Ritmo de instrucción</td>
+                        <td class="border border-gray-300 p-3">Más lento con más práctica, más rápido con compresión, flexible según tema</td>
+                        <td class="border border-gray-300 p-3">Tiempo adicional para procesamiento; oportunidades de práctica repetida</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Estructura de agrupamiento</td>
+                        <td class="border border-gray-300 p-3">Individual, parejas, pequeños grupos, grupo grande</td>
+                        <td class="border border-gray-300 p-3">Preferencia frecuente por trabajo individual; preparación explícita para trabajo grupal</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Organización de información</td>
+                        <td class="border border-gray-300 p-3">Organizadores gráficos, notas guía, resaltado de texto, audio grabado</td>
+                        <td class="border border-gray-300 p-3">Estructura visual externa que compensa dificultades de organización ejecutiva</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Adaptaciones de Producto</h4>
+                <p class="text-gray-700 mb-4">
+                  Las <strong>adaptaciones de producto</strong> modifican cómo los estudiantes demuestran su aprendizaje, ofreciendo alternativas a las evaluaciones tradicionales.
+                </p>
+
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <i class="fas fa-project-diagram text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Proyecto visual o multimedia:</strong> Infografía, video explicativo, presentación con imágenes que capitaliza fortalezas visuales y reduce demandas de lenguaje escrito extenso.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-hands text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Demostración práctica:</strong> Realización de procedimiento, construcción de modelo que evalúa comprensión mediante acción, no verbalización.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-microphone-alt text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Evaluación oral con apoyo:</strong> Respuestas grabadas, entrevista estructurada, presentación con notas que reduce ansiedad de producción escrita.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-folder-open text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Portafolio de trabajo:</strong> Colección de productos a lo largo del tiempo que muestra progreso y proceso, no solo producto final.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-laptop text-terracotta mr-3 mt-1"></i>
+                    <div>
+                      <strong>Evaluación con tecnología asistiva:</strong> Software de predicción de texto, dictado por voz, comunicador que elimina barreras motoras o de lenguaje expresivo.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Integración de IA en el PEI -->
+            <div id="integracion-ia-pei" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-navy">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Integración de IA en el Desarrollo e Implementación del PEI</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Generación Asistida de Objetivos y Metas</h4>
+                <p class="text-gray-700 mb-4">
+                  La <strong>IA generativa puede asistir significativamente en la redacción de objetivos y metas</strong> del PEI, particularmente para formular objetivos que sean específicos, medibles, alcanzables, relevantes y temporales (SMART).
+                </p>
+
+                <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                  <h5 class="font-semibold text-navy mb-2">Ejemplo de Prompt para Generación de Objetivos</h5>
+                  <div class="bg-white rounded p-3 text-sm text-gray-700 font-mono">
+                    &#34;Redacta objetivo SMART para PEI de estudiante con autismo nivel 2, 12 años, área de comunicación pragmática. Nivel actual: inicia interacciones solo cuando solicitado, mantiene conversaciones de 2-3 intercambios. Estándar: participar en discusiones colaborativas. Incluye: condición, comportamiento observable, criterio de éxito, tiempo.&#34;
+                  </div>
+                </div>
+
+                <p class="text-gray-700 text-sm">
+                  El producto de IA requiere revisión y ajuste por parte del equipo PEI, pero proporciona punto de partida que acelera el proceso y sugiere formulaciones que el docente podría no considerar.
+                </p>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Creación de Materiales de Implementación</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Tipo de Material</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Aplicación de IA</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Verificación Requerida</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3">Textos adaptados a nivel de lectura</td>
+                        <td class="border border-gray-300 p-3">Simplificación de vocabulario, estructura oracional, longitud</td>
+                        <td class="border border-gray-300 p-3">Exactitud de contenido factual, adecuación cultural, eliminación de lenguaje figurado no intencional</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3">Rúbricas con criterios individualizados</td>
+                        <td class="border border-gray-300 p-3">Generación de descriptores de nivel de desempeño</td>
+                        <td class="border border-gray-300 p-3">Alineación con metas del PEI, observabilidad de criterios, evitación de juicios subjetivos</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3">Organizadores gráficos y apoyos visuales</td>
+                        <td class="border border-gray-300 p-3">Descripción de estructura visual, sugerencias de contenido</td>
+                        <td class="border border-gray-300 p-3">Adecuación al perfil de procesamiento del estudiante, claridad visual, espacio suficiente para respuesta</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Documentación y Seguimiento del Progreso</h4>
+                <p class="text-gray-700 mb-4">
+                  La <strong>IA puede asistir en la creación de sistemas de documentación</strong> que, aunque implementados manualmente, mantienen estructura y consistencia:
+                </p>
+
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <i class="fas fa-file-alt text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Plantillas de recopilación de datos:</strong> Generación de formatos de observación sistemática, listas de verificación de comportamientos, escalas de frecuencia o duración.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-chart-bar text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Análisis de patrones:</strong> Sugerencias de visualizaciones de datos que podrían revelar tendencias (gráficos de línea para progreso, análisis de correlación entre variables).
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-envelope text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Informes de progreso personalizados:</strong> Redacción de borradores de informes para padres, adaptados al nivel de comprensión y preferencias de comunicación de cada familia.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Colaboración y Sostenibilidad -->
+        <section id="seccion-5" class="scroll-mt-8">
+          <header class="mb-12">
+            <h2 class="font-canela text-4xl font-bold text-navy mb-4">Estrategias de Colaboración y Sostenibilidad</h2>
+            <div class="w-24 h-1 bg-terracotta mb-6"></div>
+            <p class="text-xl text-gray-700 max-w-4xl">
+              El éxito a largo plazo de la implementación de enseñanza diferenciada y tecnologías de apoyo depende de la colaboración efectiva entre profesionales, el involucramiento familiar y el desarrollo profesional continuo.
+            </p>
+          </header>
+
+          <div class="bento-grid">
+            <!-- Trabajo Multidisciplinario -->
+            <div id="trabajo-multidisciplinario" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-sage">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Trabajo en Equipo Multidisciplinario</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Roles y Responsabilidades del Equipo de Apoyo Escolar</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Profesional</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Función Principal</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Interacción con Docente Regular</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Maestro de educación especial</td>
+                        <td class="border border-gray-300 p-3">Diseño e implementación de instrucción especializada, consulta a docentes regulares</td>
+                        <td class="border border-gray-300 p-3">Planificación conjunta de adaptaciones, co-enseñanza cuando apropiado, retroalimentación sobre implementación</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Terapeuta del lenguaje</td>
+                        <td class="border border-gray-300 p-3">Evaluación e intervención en comunicación receptiva y expresiva</td>
+                        <td class="border border-gray-300 p-3">Integración de objetivos de lenguaje en contenido académico, estrategias de comunicación alternativa</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Terapeuta ocupacional</td>
+                        <td class="border border-gray-300 p-3">Desarrollo de habilidades motoras finas, procesamiento sensorial, actividades de vida diaria</td>
+                        <td class="border border-gray-300 p-3">Adaptaciones de materiales y ambiente para acceso sensorial, estrategias de regulación en aula</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Terapeuta físico</td>
+                        <td class="border border-gray-300 p-3">Desarrollo de habilidades motoras gruesas, movilidad, acceso físico al ambiente</td>
+                        <td class="border border-gray-300 p-3">Adaptaciones de mobiliario, rutas de tránsito en escuela, participación en educación física adaptada</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Psicólogo escolar</td>
+                        <td class="border border-gray-300 p-3">Evaluación psicoeducacional, apoyo emocional y conductual, consulta a equipos</td>
+                        <td class="border border-gray-300 p-3">Interpretación de evaluaciones, diseño de intervenciones conductuales, apoyo en crisis</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Trabajador social</td>
+                        <td class="border border-gray-300 p-3">Conexión con recursos comunitarios, apoyo a familias, abordaje de barreras socioeconómicas</td>
+                        <td class="border border-gray-300 p-3">Comunicación con familias, coordinación de servicios externos, información sobre recursos</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Modelos de Colaboración Docente-Especialista</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Modelo</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Descripción</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Cuándo es Más Apropiado</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Desafío Principal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Consulta indirecta</td>
+                        <td class="border border-gray-300 p-3">Especialista asesora al docente regular, quien implementa independientemente</td>
+                        <td class="border border-gray-300 p-3">Necesidades leves a moderadas, docente con experiencia previa</td>
+                        <td class="border border-gray-300 p-3">Garantizar que recomendaciones se implementen fielmente</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Co-enseñanza: uno dirige, uno apoya</td>
+                        <td class="border border-gray-300 p-3">Un docente lidera instrucción, otro circula apoyando estudiantes específicos</td>
+                        <td class="border border-gray-300 p-3">Introducción de nuevo contenido con estudiantes que necesitan apoyo intensivo</td>
+                        <td class="border border-gray-300 p-3">Claridad de roles, evitar que estudiante con autismo sea siempre &#34;el apoyado&#34;</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Co-enseñanza: estaciones paralelas</td>
+                        <td class="border border-gray-300 p-3">Docentes dirigen grupos pequeños rotativos con contenido diferenciado</td>
+                        <td class="border border-gray-300 p-3">Práctica de habilidades, revisión de conceptos, evaluación formativa</td>
+                        <td class="border border-gray-300 p-3">Coordenación de transiciones, equidad de experiencias en estaciones</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Co-enseñanza: equipo de enseñanza</td>
+                        <td class="border border-gray-300 p-3">Ambos docentes comparten responsabilidad equitativa de toda la instrucción</td>
+                        <td class="border border-gray-300 p-3">Relación de colaboración establecida, alta confianza mutua</td>
+                        <td class="border border-gray-300 p-3">Requiere tiempo de planificación conjunta sustancial</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Involucramiento de Familias -->
+            <div id="involucramiento-familias" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-terracotta">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Involucramiento de Familias y Comunidad</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Comunicación Efectiva con Padres de Estudiantes con Autismo</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Consideración</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Estrategia de Adaptación</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Ejemplo de Implementación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Preferencia de formato</td>
+                        <td class="border border-gray-300 p-3">Ofrecer múltiples opciones de comunicación</td>
+                        <td class="border border-gray-300 p-3">Informe escrito, llamada telefónica, reunión virtual, mensaje de texto según preferencia familiar</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Nivel de detalle deseado</td>
+                        <td class="border border-gray-300 p-3">Ajustar granularidad de información</td>
+                        <td class="border border-gray-300 p-3">Algunas familias descripción diaria detallada; otras, resumen semanal con alertas solo para problemas</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Idioma y accesibilidad</td>
+                        <td class="border border-gray-300 p-3">Provisión en idioma preferido, evitando jerga técnica</td>
+                        <td class="border border-gray-300 p-3">Traducción al español, explicación de términos técnicos, uso de apoyos visuales</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Horario y disponibilidad</td>
+                        <td class="border border-gray-300 p-3">Flexibilidad en momentos de contacto</td>
+                        <td class="border border-gray-300 p-3">Reuniones fuera de horario escolar cuando necesario, comunicación asincrónica respetando rutinas familiares</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Extensión de Estrategias al Hogar</h4>
+                <p class="text-gray-700 mb-4">
+                  La <strong>consistencia entre ambiente escolar y familiar</strong> amplifica significativamente el impacto de intervenciones educativas.
+                </p>
+
+                <div class="space-y-4">
+                  <div class="bg-sage bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Entrenamiento de padres en técnicas de apoyo visual</h5>
+                    <p class="text-sm text-gray-700">Demostración de creación y uso de horarios, listas de verificación, organizadores; provisión de plantillas en blanco.</p>
+                  </div>
+                  <div class="bg-terracotta bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Materiales replicables en el hogar</h5>
+                    <p class="text-sm text-gray-700">Instrucciones para crear con materiales caseros (cajas de cartón, fotografías, marcadores) los apoyos utilizados en escuela.</p>
+                  </div>
+                  <div class="bg-navy bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Comunicación estructurada sobre rutinas</h5>
+                    <p class="text-sm text-gray-700">Compartir anticipadamente cambios en rutina escolar que afectarán hogar, solicitar información sobre eventos familiares que podrían impactar desempeño escolar.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Desarrollo Profesional -->
+            <div id="desarrollo-profesional" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-navy">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Desarrollo Profesional Continuo sin Recursos Institucionales</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Autoformación y Recursos Abiertos</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Recurso</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Tipo de Contenido</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Acceso</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Cursos de universidades (MOOCs)</td>
+                        <td class="border border-gray-300 p-3">Fundamentos de autismo, enseñanza diferenciada, tecnología educativa</td>
+                        <td class="border border-gray-300 p-3">Coursera, edX, FutureLearn con opciones de auditoría gratuita</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Organizaciones de autismo</td>
+                        <td class="border border-gray-300 p-3">Estrategias específicas, actualizaciones de investigación, testimonios de personas con autismo</td>
+                        <td class="border border-gray-300 p-3">Autism Speaks, Autistic Self Advocacy Network, organizaciones locales puertorriqueñas</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Publicaciones de acceso abierto</td>
+                        <td class="border border-gray-300 p-3">Investigación actualizada en educación especial, autismo, tecnología educativa</td>
+                        <td class="border border-gray-300 p-3">Google Scholar, repositorios institucionales, preprints</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Webinars y seminarios virtuales</td>
+                        <td class="border border-gray-300 p-3">Formación puntual en temas específicos, oportunidades de preguntas</td>
+                        <td class="border border-gray-300 p-3">Organizaciones profesionales, universidades, agencias estatales</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Redes de Apoyo entre Pares</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <i class="fas fa-users text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Grupos de estudio de docentes de escuelas cercanas:</strong> Encuentros regulares para compartir desafíos, estrategias probadas, recursos desarrollados.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-share-alt text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Intercambio de materiales y estrategias probadas:</strong> Sistemas de préstamo y adaptación de recursos entre colegas.
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-handshake text-sage mr-3 mt-1"></i>
+                    <div>
+                      <strong>Mentoría entre docentes con diferente nivel de experiencia:</strong> Pares de apoyo que combinan expertise en autismo con conocimiento de contexto escolar específico.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Aprovechamiento de Programas Existentes</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Oportunidad</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Beneficio Mutuo</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Consideración</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Colaboraciones con universidades</td>
+                        <td class="border border-gray-300 p-3">Prácticas supervisadas de estudiantes de educación especial, terapia, psicología</td>
+                        <td class="border border-gray-300 p-3">Supervisión de calidad, alineación con metas del PEI</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Voluntariado de profesionales en formación</td>
+                        <td class="border border-gray-300 p-3">Horas de servicio requeridas para licenciamiento, apoyo adicional en aula</td>
+                        <td class="border border-gray-300 p-3">Coordinación con programas académicos, orientación clara de expectativas</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Alianzas con organizaciones sin fines de lucro</td>
+                        <td class="border border-gray-300 p-3">Recursos especializados, talleres, materiales, conexión con comunidad de autismo</td>
+                        <td class="border border-gray-300 p-3">Alineación de enfoques, claridad de responsabilidades, sostenibilidad de colaboración</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 6: Planificación Práctica -->
+        <section id="seccion-6" class="scroll-mt-8">
+          <header class="mb-12">
+            <h2 class="font-canela text-4xl font-bold text-navy mb-4">Planificación Práctica del Día de Capacitación</h2>
+            <div class="w-24 h-1 bg-terracotta mb-6"></div>
+            <p class="text-xl text-gray-700 max-w-4xl">
+              Estructura detallada para la implementación efectiva de la capacitación en un día, con consideraciones para recursos limitados y resultados medibles.
+            </p>
+          </header>
+
+          <div class="bento-grid">
+            <!-- Estructura Horaria -->
+            <div id="estructura-horaria" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-sage">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Estructura Horaria Sugerida</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Sesión Matutina (4 horas): Fundamentos Legales y Teóricos</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Horario</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Actividad</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Contenido Principal</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Producto del Participante</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">8:00-9:30</td>
+                        <td class="border border-gray-300 p-3">Marco legal puertorriqueño</td>
+                        <td class="border border-gray-300 p-3">Leyes 51-1996 y 163-2024: derechos, procedimientos, responsabilidades docentes</td>
+                        <td class="border border-gray-300 p-3">Mapa conceptual de obligaciones legales personales</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">9:30-9:45</td>
+                        <td class="border border-gray-300 p-3">*Receso*</td>
+                        <td class="border border-gray-300 p-3"></td>
+                        <td class="border border-gray-300 p-3"></td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">9:45-11:00</td>
+                        <td class="border border-gray-300 p-3">Principios de enseñanza diferenciada para autismo</td>
+                        <td class="border border-gray-300 p-3">Filosofía de Tomlinson, tres pilares, aplicación a perfiles del espectro</td>
+                        <td class="border border-gray-300 p-3">Identificación de área curricular para diferenciación inmediata</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">11:00-12:00</td>
+                        <td class="border border-gray-300 p-3">Estrategias de bajo costo: apoyos visuales y estructuración</td>
+                        <td class="border border-gray-300 p-3">TEACCH, horarios visuales, organización ambiental, adaptaciones sensoriales</td>
+                        <td class="border border-gray-300 p-3">Borrador de horario visual o organización de aula para su contexto</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Sesión de Mediodía (1 hora): Trabajo Práctico Colaborativo</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Horario</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Actividad</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Dinámica</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Producto Esperado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">12:00-1:00</td>
+                        <td class="border border-gray-300 p-3">Diseño de adaptaciones curriculares en grupos pequeños</td>
+                        <td class="border border-gray-300 p-3">Grupos por nivel educativo y área curricular; facilitación rotativa del capacitador</td>
+                        <td class="border border-gray-300 p-3">Dos adaptaciones concretas documentadas, con lista de materiales necesarios</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Sesión Vespertina (3 horas): IA y Aplicación Práctica</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Horario</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Actividad</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Contenido Principal</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Producto del Participante</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">1:00-2:00</td>
+                        <td class="border border-gray-300 p-3">Introducción a IA educativa y herramientas gratuitas</td>
+                        <td class="border border-gray-300 p-3">Conceptualización ética, demostración de ChatGPT/Claude/Gemini, principios de prompting</td>
+                        <td class="border border-gray-300 p-3">Cuenta creada en al menos una plataforma, primeros prompts experimentales</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">2:00-2:15</td>
+                        <td class="border border-gray-300 p-3">*Receso*</td>
+                        <td class="border border-gray-300 p-3"></td>
+                        <td class="border border-gray-300 p-3"></td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">2:15-3:30</td>
+                        <td class="border border-gray-300 p-3">Taller práctico: generación de materiales con IA</td>
+                        <td class="border border-gray-300 p-3">Generación de adaptaciones de texto, historias sociales, organizadores gráficos, rúbricas; verificación crítica de productos</td>
+                        <td class="border border-gray-300 p-3">Conjunto de materiales generados, revisados y listos para uso o adaptación final</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">3:30-4:00</td>
+                        <td class="border border-gray-300 p-3">Integración de estrategias en el PEI y cierre</td>
+                        <td class="border border-gray-300 p-3">Conexión entre diferenciación, IA y proceso del PEI; establecimiento de compromisos de implementación; mecanismos de seguimiento</td>
+                        <td class="border border-gray-300 p-3">Plan de implementación de 30 días con metas específicas, identificación de apoyo necesario</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Materiales y Recursos -->
+            <div id="materiales-recursos" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-terracotta">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Materiales y Recursos para la Capacitación</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Materiales Impresos de Bajo Costo</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Material</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Propósito</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Formato Sugerido</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Guía rápida de leyes y procedimientos</td>
+                        <td class="border border-gray-300 p-3">Referencia inmediata post-capacitación</td>
+                        <td class="border border-gray-300 p-3">Tarjeta plastificada de doble cara, letra grande</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Plantillas de apoyos visuales en blanco</td>
+                        <td class="border border-gray-300 p-3">Punto de partida para personalización</td>
+                        <td class="border border-gray-300 p-3">Horarios semanales, diarios, de rutina; organizadores de tareas; listas de verificación</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Protocolos de observación y documentación</td>
+                        <td class="border border-gray-300 p-3">Estandarización de recopilación de datos</td>
+                        <td class="border border-gray-300 p-3">Formato ABC (antecedente-conducta-consecuencia), registro de frecuencia, escala de estimación</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Banco de prompts de IA para educación especial</td>
+                        <td class="border border-gray-300 p-3">Aceleración de curva de aprendizaje en uso de IA</td>
+                        <td class="border border-gray-300 p-3">Categorizado por tipo de necesidad: adaptación de texto, historia social, descomposición de tarea, etc.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Acceso a Tecnología Durante la Capacitación</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Estrategia</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Implementación</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Contingencia</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Uso de dispositivos personales de participantes</td>
+                        <td class="border border-gray-300 p-3">Solicitud previa de traer smartphone o tablet con carga</td>
+                        <td class="border border-gray-300 p-3">Dispositivos de respaldo del capacitador para quienes no puedan traer</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Conexión a internet móvil o punto de acceso compartido</td>
+                        <td class="border border-gray-300 p-3">Hotspot del capacitador o conexión escolar disponible</td>
+                        <td class="border border-gray-300 p-3">Materiales descargables previamente para uso offline</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Cuentas temporales o de demostración en plataformas de IA</td>
+                        <td class="border border-gray-300 p-3">Creación de cuentas durante la sesión con apoyo</td>
+                        <td class="border border-gray-300 p-3">Demostración en pantalla proyectada con participación verbal de asistentes</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Productos Esperados de los Participantes</h4>
+                <div class="space-y-4">
+                  <div class="bg-sage bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Dos adaptaciones curriculares diferenciadas</h5>
+                    <p class="text-sm text-gray-700">Para su área de enseñanza específica, con documentación de justificación pedagógica y lista de materiales necesarios.</p>
+                  </div>
+                  <div class="bg-terracotta bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Conjunto de prompts de IA personalizados</h5>
+                    <p class="text-sm text-gray-700">Para sus necesidades recurrentes, organizados por tipo de tarea y verificados por efectividad.</p>
+                  </div>
+                  <div class="bg-navy bg-opacity-10 rounded-lg p-4">
+                    <h5 class="font-semibold text-navy mb-2">Borrador de plan de implementación en su aula</h5>
+                    <p class="text-sm text-gray-700">Con metas de 30, 60 y 90 días, identificación de recursos necesarios, y estrategias para superar barreras anticipadas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Evaluación y Seguimiento -->
+            <div id="evaluacion-seguimiento" class="bg-white rounded-xl p-8 shadow-lg border-l-4 border-navy">
+              <h3 class="font-canela text-2xl font-bold text-navy mb-6">Evaluación y Seguimiento Post-Capacitación</h3>
+
+              <div class="mb-8">
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Indicadores de Éxito Inmediato</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Indicador</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Evidencia</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Método de Verificación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Comprensión demostrada de derechos legales de estudiantes</td>
+                        <td class="border border-gray-300 p-3">Identificación correcta de componentes del PEI, procedimientos de derivación</td>
+                        <td class="border border-gray-300 p-3">Cuestionario de aplicación inmediata, discusión grupal</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Capacidad para operar al menos una herramienta de IA básica</td>
+                        <td class="border border-gray-300 p-3">Generación exitosa de material útil durante taller práctico</td>
+                        <td class="border border-gray-300 p-3">Observación directa durante actividad, revisión de producto generado</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Diseño de al menos una estrategia diferenciada aplicable</td>
+                        <td class="border border-gray-300 p-3">Adaptación concreta documentada con especificaciones suficientes para implementación</td>
+                        <td class="border border-gray-300 p-3">Revisión de producto de trabajo colaborativo</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg text-charcoal mb-4">Mecanismos de Soporte Continuo</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Mecanismo</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Frecuencia</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Propósito</th>
+                        <th class="border border-gray-300 p-3 text-left font-semibold">Responsable</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Grupo de mensajería para consultas entre pares</td>
+                        <td class="border border-gray-300 p-3">Continuo, asíncrono</td>
+                        <td class="border border-gray-300 p-3">Resolución rápida de dudas, compartición de recursos, apoyo emocional</td>
+                        <td class="border border-gray-300 p-3">Comunidad de participantes, con facilitación periódica del capacitador</td>
+                      </tr>
+                      <tr class="bg-gray-50">
+                        <td class="border border-gray-300 p-3 font-semibold">Sesión virtual de seguimiento a los 30 días</td>
+                        <td class="border border-gray-300 p-3">Única, 60-90 minutos</td>
+                        <td class="border border-gray-300 p-3">Revisión de implementaciones, resolución de desafíos emergentes, ajuste de estrategias</td>
+                        <td class="border border-gray-300 p-3">Capacitador, con participación voluntaria de asistentes</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 p-3 font-semibold">Compilación compartida de recursos generados por participantes</td>
+                        <td class="border border-gray-300 p-3">Actualización continua</td>
+                        <td class="border border-gray-300 p-3">Agregación de materiales probados en contextos reales, enriquecimiento de repositorio comunitario</td>
+                        <td class="border border-gray-300 p-3">Participantes con curaduría del capacitador</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12">
+      <div class="max-w-6xl mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="font-canela text-xl font-bold mb-4">Referencias Clave</h3>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a href="https://law.justia.com/codes/puerto-rico/title-twenty-four/part-vii/chapter-149a/3564/" class="text-sage hover:text-terracotta transition-colors" target="_blank">Ley 163-2024 de Puerto Rico</a>
+              </li>
+              <li>
+                <a href="https://presupuestosanteriores.pr.gov/af2009_2010/Tomo_II/suppdocs/baselegal/081/51-1996.pdf" class="text-sage hover:text-terracotta transition-colors" target="_blank">Ley 51-1996 de Puerto Rico</a>
+              </li>
+              <li>
+                <a href="https://www.aiforeducation.io/ai-resources/state-ai-guidance" class="text-sage hover:text-terracotta transition-colors" target="_blank">Propuesta de Ley de IA Educativa</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-canela text-xl font-bold mb-4">Recursos Educativos</h3>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a href="https://www.academia.edu/3987161/The_Path_Leading_to_Differentiation_An_Interview_with_Carol_Tomlinson" class="text-sage hover:text-terracotta transition-colors" target="_blank">Entrevista con Carol Tomlinson</a>
+              </li>
+              <li>
+                <a href="https://andaconmigo.com/tecnicas-de-estudio-para-ninos-con-autismo-mejora-su-aprendizaje-efectivamente/" class="text-sage hover:text-terracotta transition-colors" target="_blank">Técnicas de Estudio para Autismo</a>
+              </li>
+              <li>
+                <a href="https://forwardteacher.com/2025/05/rumbo-a-una-generacion-ia/" class="text-sage hover:text-terracotta transition-colors" target="_blank">IA en Educación</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-canela text-xl font-bold mb-4">Herramientas de IA</h3>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a href="https://schoolhub.ai/en-US/articles/ai-classroom-activities-by-age" class="text-sage hover:text-terracotta transition-colors" target="_blank">AI Classroom Activities</a>
+              </li>
+              <li>
+                <a href="https://www.edutopia.org/article/5-engaging-ai-classroom-activities-try-your-students/" class="text-sage hover:text-terracotta transition-colors" target="_blank">Edutopia AI Activities</a>
+              </li>
+              <li>
+                <a href="https://www.microsoft.com/en-us/microsoft-365-life-hacks/everyday-ai/use-ai-for-differentiated-instruction" class="text-sage hover:text-terracotta transition-colors" target="_blank">IA para Instrucción Diferenciada</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-600 mt-8 pt-8 text-center text-sm">
+          <p>© 2024 Capacitación en Enseñanza Diferenciada para Estudiantes con Autismo en Puerto Rico. Diseñado para maximizar el potencial de cada estudiante dentro del marco legal vigente.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                // Primary colors with good contrast
+                primaryColor: '#9CAF88',
+                primaryTextColor: '#2C3E50',
+                primaryBorderColor: '#2C3E50',
+                
+                // Secondary colors
+                secondaryColor: '#D4A574',
+                secondaryTextColor: '#2C3E50',
+                secondaryBorderColor: '#2C3E50',
+                
+                // Tertiary colors
+                tertiaryColor: '#F8F6F0',
+                tertiaryTextColor: '#2C3E50',
+                tertiaryBorderColor: '#2C3E50',
+                
+                // Additional node colors for variety with good contrast
+                primaryColorLight: '#B8C7A8',
+                primaryColorDark: '#7A8B6B',
+                
+                // Background and lines
+                background: '#FEFCF8',
+                lineColor: '#34495E',
+                
+                // Text colors for different elements
+                mainBkg: '#9CAF88',
+                secondBkg: '#D4A574',
+                tertiaryColor: '#F8F6F0',
+                
+                // Ensure text contrast
+                nodeTextColor: '#2C3E50',
+                textColor: '#2C3E50',
+                
+                // Special node colors
+                cScale0: '#9CAF88',
+                cScale1: '#D4A574', 
+                cScale2: '#F8F6F0',
+                cScale3: '#B8C7A8',
+                cScale4: '#7A8B6B',
+                
+                // Edge and arrow colors
+                edgeLabelBackground: '#FEFCF8',
+                clusterBkg: '#F8F6F0',
+                clusterBorder: '#2C3E50'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: true,
+                wrap: true
+            },
+            gantt: {
+                useMaxWidth: true
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // Initialize mermaid controls after diagrams are rendered
+        setTimeout(() => {
+            initializeMermaidControls();
+        }, 1000);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const toggleMobileMenu = () => {
+            const toc = document.querySelector('.toc-fixed');
+            toc.classList.toggle('open');
+        };
+
+        // Add mobile menu button for smaller screens
+        if (window.innerWidth <= 1024) {
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.className = 'fixed top-4 left-4 z-50 bg-navy text-white p-3 rounded-lg shadow-lg lg:hidden';
+            mobileMenuBtn.onclick = toggleMobileMenu;
+            document.body.appendChild(mobileMenuBtn);
+
+            // Close TOC when clicking outside
+            document.addEventListener('click', (e) => {
+                const toc = document.querySelector('.toc-fixed');
+                const mobileMenuBtn = document.querySelector('button[class*="lg:hidden"]');
+                
+                if (toc.classList.contains('open') && 
+                    !toc.contains(e.target) && 
+                    !mobileMenuBtn.contains(e.target)) {
+                    toc.classList.remove('open');
+                }
+            });
+        }
+
+        // Close TOC when clicking on a link (mobile)
+        document.querySelectorAll('.toc-fixed a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    document.querySelector('.toc-fixed').classList.remove('open');
+                }
+            });
+        });
+    </script>
+  
+
+</body></html>
